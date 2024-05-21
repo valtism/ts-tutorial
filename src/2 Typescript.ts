@@ -431,4 +431,31 @@ type tests5 = Expect<Equal<typeof defaultChart2.type, "Line">>;
 // ---
 // ---
 
-// "as"
+// Generics
+function createArray() {
+  return new Array();
+}
+
+let numberArray = createArray();
+
+numberArray.push(1);
+// @ts-expect-error
+numberArray.push("2");
+
+// ---
+// ---
+// ---
+
+// Extends
+
+interface BaseType {
+  id: string;
+  name: string;
+}
+function extractKey<T>(data: T) {
+  return data.id + data.name;
+}
+
+extractKey({ id: "1", name: "Dan" });
+// @ts-expect-error
+extractKey({ id: "2", type: "Chart" });
